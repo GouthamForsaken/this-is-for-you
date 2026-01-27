@@ -367,7 +367,7 @@ body {
   /* bottom-left bear moved slightly below text area */
   .gifs_left {
     position: absolute;
-    bottom: -180px;      /* drops the bear a bit */
+    bottom: -200px;      /* drops the bear a bit */
     left: 0;
     transform: translate(6px, 0);
   }
