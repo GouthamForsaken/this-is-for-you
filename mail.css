@@ -26,8 +26,8 @@ body {
 
 .box {
   position: relative;
-  width: 600px;
-  height: 350px;
+  width: 760px;
+  height: 650px;
   background: rgba(253, 233, 234, 0.9);
   border-radius: 5px;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
@@ -38,19 +38,21 @@ body {
 
 /* .gifs_left / .gifs_right are now DIRECT CHILDREN of .box (siblings of
    .mail), not nested inside .content. .box has no overflow:hidden, so the
-   bears can straddle the dashed border instead of being clipped by .mail. */
+   bears can straddle the dashed border instead of being clipped by .mail.
+   Offset = inset(30px) - half icon width(46px) = -16px, so the icon's
+   center lands exactly on the mail's border corner. */
 .gifs_left {
   position: absolute;
   width: 92px;
-  bottom: -21px;
-  left: -21px;
+  bottom: -16px;
+  left: -16px;
 }
 
 .gifs_right {
   position: absolute;
   width: 92px;
-  top: -21px;
-  right: -21px;
+  top: -16px;
+  right: -16px;
 }
 
 .gifs_left img,
@@ -59,50 +61,63 @@ body {
 }
 
 .mail {
-  width: 550px;
-  height: 300px;
+  width: 700px;
+  height: 590px;
   border: 2px dashed rgb(167, 32, 71);
   border-radius: 15px;
   overflow: hidden;               /* keep content inside */
 }
 
-.heart {
+/* Decorative hearts are now two small corner clusters, siblings of .mail
+   (children of .box) — same treatment as the bears — so they never sit on
+   top of the paragraph text. They occupy the two corners the bears don't
+   use (top-left / bottom-right), tucked just inside the dashed border. */
+.heart-cluster {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 70px;
+  height: 70px;
+  pointer-events: none;
 }
 
-.heart img:nth-child(1) {
-  position: absolute;
-  width: 50px;
-  transform: rotate(-25deg) translate(10px, 10px);
+.heart-cluster.top-left {
+  top: 12px;
+  left: 12px;
 }
 
-.heart img:nth-child(2) {
-  position: absolute;
-  width: 30px;
-  transform: rotate(-5deg) translate(3px, 50px);
+.heart-cluster.bottom-right {
+  bottom: 20px;
+  right: 20px;
 }
 
-.heart img:nth-child(3) {
+.heart-cluster img:nth-child(1) {
   position: absolute;
-  width: 30px;
-  transform: rotate(5deg) translate(70px, 5px);
+  width: 38px;
+  top: 0;
+  left: 0;
+  transform: rotate(-20deg);
 }
 
-.heart img:nth-child(4) {
+.heart-cluster img:nth-child(2) {
   position: absolute;
-  width: 50px;
-  right: 60px;
-  bottom: 60px;
-  transform: rotate(25deg);
+  width: 22px;
+  top: 26px;
+  left: 7px;
+  transform: rotate(-5deg);
 }
 
-.heart img:nth-child(5) {
-  position: absolute;
-  width: 30px;
-  right: 110px;
-  bottom: 80px;
+.heart-cluster.bottom-right img:nth-child(1) {
+  top: auto;
+  left: auto;
+  bottom: 0;
+  right: 0;
+  transform: rotate(20deg);
+}
+
+.heart-cluster.bottom-right img:nth-child(2) {
+  top: auto;
+  left: auto;
+  bottom: 30px;
+  right: 8px;
   transform: rotate(5deg);
 }
 
@@ -118,7 +133,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 50px;
+  height: 55px;
   overflow: hidden;
 }
 
@@ -137,8 +152,8 @@ body {
 }
 
 .content p {
-  padding: 0px 45px;
-  font-size: 20px;
+  padding: 30px 60px 0px;
+  font-size: 19px;
   font-family: 'Dancing Script', cursive;
   opacity: 0;
   transition: all 1s;
@@ -385,6 +400,38 @@ body {
   .gifs_right img {
     width: 100%;
     height: auto;
+  }
+
+  /* Smaller heart clusters on mobile, tucked just inside the padding so
+     they stay clear of the paragraph text */
+  .heart-cluster {
+    width: 46px;
+    height: 46px;
+  }
+
+  .heart-cluster.top-left {
+    top: 6px;
+    left: 6px;
+  }
+
+  .heart-cluster.bottom-right {
+    bottom: 6px;
+    right: 6px;
+  }
+
+  .heart-cluster img:nth-child(1) {
+    width: 26px;
+  }
+
+  .heart-cluster img:nth-child(2) {
+    width: 16px;
+    top: 18px;
+    left: 5px;
+  }
+
+  .heart-cluster.bottom-right img:nth-child(2) {
+    bottom: 18px;
+    right: 5px;
   }
 }
 
